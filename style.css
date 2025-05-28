@@ -1,0 +1,309 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2761
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 /* General Body and Fonts */\
+body \{\
+    font-family: 'Gowun Batang', serif; /* A clean, readable Korean-inspired font */\
+    background: linear-gradient(to bottom right, #fdfdff, #ffebee); /* Soft pastel gradient */\
+    display: flex;\
+    flex-direction: column;\
+    justify-content: center;\
+    align-items: center;\
+    min-height: 100vh;\
+    margin: 0;\
+    overflow-x: hidden; /* Prevent horizontal scroll */\
+    color: #4a4a4a; /* Soft dark grey for text */\
+    line-height: 1.6;\
+\}\
+\
+.container \{\
+    max-width: 900px;\
+    width: 95%;\
+    margin: 20px auto;\
+    padding: 30px;\
+    background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white background */\
+    border-radius: 25px;\
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1); /* Soft shadow */\
+    text-align: center;\
+\}\
+\
+/* Header Styling */\
+.header \{\
+    margin-bottom: 40px;\
+\}\
+\
+.header h1 \{\
+    font-family: 'Cute Font', cursive; /* Playful font for the main title */\
+    font-size: 3.5em;\
+    color: #ff69b4; /* Bright pink for impact */\
+    margin-bottom: 10px;\
+    text-shadow: 2px 2px 5px rgba(255, 105, 180, 0.2);\
+\}\
+\
+.header .friend-name \{\
+    color: #ff1493; /* Deeper pink for the name */\
+\}\
+\
+.header .subtitle \{\
+    font-size: 1.3em;\
+    color: #888;\
+    margin-bottom: 20px;\
+\}\
+\
+.current-date-display \{\
+    font-size: 1.1em;\
+    color: #666;\
+    margin-top: -10px;\
+\}\
+\
+/* Calendar Grid */\
+.calendar-grid \{\
+    display: grid;\
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); /* Responsive grid */\
+    gap: 20px;\
+    padding: 10px;\
+    justify-content: center;\
+\}\
+\
+.date-card \{\
+    background-color: #fce4ec; /* Light pink */\
+    border-radius: 18px;\
+    padding: 15px;\
+    height: 150px;\
+    display: flex;\
+    flex-direction: column;\
+    justify-content: center;\
+    align-items: center;\
+    cursor: pointer;\
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, background-color 0.3s ease;\
+    position: relative;\
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08); /* Soft shadow for cards */\
+    user-select: none; /* Prevent text selection */\
+\}\
+\
+.date-card:hover:not(.locked) \{\
+    transform: translateY(-8px); /* Lift effect on hover */\
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);\
+    background-color: #fff3e0; /* Lighter peach on hover */\
+\}\
+\
+.date-card .day-number \{\
+    font-family: 'Cute Font', cursive;\
+    font-size: 3em;\
+    color: #ff69b4;\
+    line-height: 1;\
+    margin-bottom: 5px;\
+\}\
+\
+.date-card .month \{\
+    font-size: 1.1em;\
+    color: #888;\
+    text-transform: uppercase;\
+    letter-spacing: 1px;\
+\}\
+\
+.gift-status \{\
+    position: absolute;\
+    bottom: 10px;\
+    right: 10px;\
+    font-size: 1.5em;\
+    line-height: 1;\
+\}\
+\
+/* Card States */\
+.date-card.locked \{\
+    background-color: #e0e0e0; /* Greyed out for locked dates */\
+    cursor: not-allowed;\
+    filter: grayscale(80%); /* Make it look less vibrant */\
+    opacity: 0.7;\
+\}\
+\
+.date-card.locked .day-number,\
+.date-card.locked .month \{\
+    color: #999;\
+\}\
+\
+.date-card.current \{\
+    background-color: #ffd1dc; /* Brighter pink for current day */\
+    box-shadow: 0 0 20px rgba(255, 100, 150, 0.4);\
+    animation: pulse 2s infinite alternate ease-in-out; /* Gentle pulse for today */\
+\}\
+\
+.date-card.current .day-number \{\
+    color: #ff1493;\
+\}\
+\
+.date-card.opened \{\
+    background-color: #d1f3e0; /* Light green for opened gifts */\
+    opacity: 0.9;\
+\}\
+\
+.date-card.opened .day-number,\
+.date-card.opened .month \{\
+    color: #5cb85c; /* Green for opened gifts */\
+\}\
+\
+\
+/* Pulse Animation for Current Day */\
+@keyframes pulse \{\
+    from \{ transform: scale(1); box-shadow: 0 0 20px rgba(255, 100, 150, 0.4); \}\
+    to \{ transform: scale(1.02); box-shadow: 0 0 30px rgba(255, 100, 150, 0.6); \}\
+\}\
+\
+\
+/* Modal (Pop-up) Styling */\
+.modal \{\
+    display: none; /* Hidden by default */\
+    position: fixed; /* Stay in place */\
+    z-index: 10; /* Sit on top */\
+    left: 0;\
+    top: 0;\
+    width: 100%; /* Full width */\
+    height: 100%; /* Full height */\
+    overflow: auto; /* Enable scroll if needed */\
+    background-color: rgba(0, 0, 0, 0.5); /* Black w/ opacity */\
+    backdrop-filter: blur(5px); /* Frosted glass effect */\
+    display: flex;\
+    justify-content: center;\
+    align-items: center;\
+\}\
+\
+.modal-content \{\
+    background-color: #fff;\
+    margin: auto;\
+    padding: 30px;\
+    border-radius: 25px;\
+    width: 90%;\
+    max-width: 500px;\
+    text-align: center;\
+    position: relative;\
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);\
+    animation: fadeInScale 0.3s ease-out forwards;\
+\}\
+\
+.close-button \{\
+    color: #aaa;\
+    position: absolute;\
+    top: 15px;\
+    right: 20px;\
+    font-size: 28px;\
+    font-weight: bold;\
+    cursor: pointer;\
+    transition: color 0.3s;\
+\}\
+\
+.close-button:hover,\
+.close-button:focus \{\
+    color: #777;\
+    text-decoration: none;\
+\}\
+\
+.gift-animation \{\
+    font-size: 4em;\
+    margin-bottom: 20px;\
+    animation: bounceIn 0.8s ease-out; /* Bouncy animation for the icon */\
+\}\
+\
+.modal-title \{\
+    font-family: 'Cute Font', cursive;\
+    font-size: 2.5em;\
+    color: #ff69b4;\
+    margin-bottom: 15px;\
+\}\
+\
+.modal-message \{\
+    font-size: 1.2em;\
+    color: #555;\
+    margin-bottom: 30px;\
+\}\
+\
+.gift-button \{\
+    display: inline-block;\
+    background-color: #87ceeb; /* Sky blue for the button */\
+    color: white;\
+    padding: 15px 30px;\
+    border-radius: 30px;\
+    text-decoration: none;\
+    font-size: 1.2em;\
+    font-weight: bold;\
+    transition: background-color 0.3s ease, transform 0.2s ease;\
+    box-shadow: 0 5px 15px rgba(135, 206, 235, 0.4);\
+\}\
+\
+.gift-button:hover \{\
+    background-color: #6495ed; /* Royal blue on hover */\
+    transform: translateY(-3px);\
+\}\
+\
+/* Animations for Modal */\
+@keyframes fadeInScale \{\
+    from \{ opacity: 0; transform: scale(0.8); \}\
+    to \{ opacity: 1; transform: scale(1); \}\
+\}\
+\
+@keyframes bounceIn \{\
+    0%, 20%, 40%, 60%, 80%, 100% \{\
+        transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);\
+    \}\
+    0% \{ opacity: 0; transform: scale3d(0.3, 0.3, 0.3); \}\
+    20% \{ transform: scale3d(1.1, 1.1, 1.1); \}\
+    40% \{ transform: scale3d(0.9, 0.9, 0.9); \}\
+    60% \{ opacity: 1; transform: scale3d(1.03, 1.03, 1.03); \}\
+    80% \{ transform: scale3d(0.97, 0.97, 0.97); \}\
+    100% \{ opacity: 1; transform: scale3d(1, 1, 1); \}\
+\}\
+\
+\
+/* Responsive Design */\
+@media (max-width: 768px) \{\
+    .header h1 \{\
+        font-size: 2.5em;\
+    \}\
+    .header .subtitle \{\
+        font-size: 1em;\
+    \}\
+    .date-card \{\
+        width: 100px;\
+        height: 100px;\
+        padding: 10px;\
+    \}\
+    .date-card .day-number \{\
+        font-size: 2.5em;\
+    \}\
+    .date-card .month \{\
+        font-size: 0.9em;\
+    \}\
+    .modal-title \{\
+        font-size: 2em;\
+    \}\
+    .modal-message \{\
+        font-size: 1em;\
+    \}\
+    .gift-button \{\
+        padding: 12px 25px;\
+        font-size: 1.1em;\
+    \}\
+\}\
+\
+@media (max-width: 480px) \{\
+    .header h1 \{\
+        font-size: 2em;\
+    \}\
+    .date-card \{\
+        width: 80px;\
+        height: 80px;\
+    \}\
+    .date-card .day-number \{\
+        font-size: 2em;\
+    \}\
+    .date-card .month \{\
+        font-size: 0.8em;\
+    \}\
+    .gift-animation \{\
+        font-size: 3em;\
+    \}\
+\}}
